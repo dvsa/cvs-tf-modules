@@ -69,12 +69,12 @@ resource "aws_iam_role_policy_attachment" "role-policy-attachment-default" {
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
-  name              = "/aws/lambda/${var.service_map.name}-${terraform.workspace}"
+  name              = "/aws/lambda/${var.service_name}-${terraform.workspace}"
   retention_in_days = var.log_retention_days
   tags = {
-    Component   = var.service_map.component
+    Component   = var.component
     Environment = terraform.workspace
-    Project     = var.service_map.name
-    Name        = "${var.service_map.name}-${terraform.workspace}"
+    Project     = var.service_name
+    Name        = "${var.service_name}-${terraform.workspace}"
   }
 }
