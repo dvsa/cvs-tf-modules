@@ -55,7 +55,7 @@ variable "csi" {
 variable "scaffold_from" {
   type        = string
   description = "The lambda resource to scaffold the new lambda from"
-  default     = "defects-${terraform.workspace}"
+  default     = ""
 }
 
 variable "timeout_alarm_threshold" {

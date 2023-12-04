@@ -1,13 +1,3 @@
-data "aws_s3_object" "service_hash" {
-  bucket = var.bucket_name
-  key    = "${var.bucket_key}/latestHash_${terraform.workspace}.txt"
-}
-
-data "aws_s3_object" "service" {
-  bucket = var.bucket_name
-  key    = "${var.bucket_key}/${data.aws_s3_object.service_hash.body}.zip"
-}
-
 resource "aws_lambda_function" "service" {
   function_name = "${var.service_name}-${terraform.workspace}"
   s3_bucket     = data.aws_s3_object.service.bucket

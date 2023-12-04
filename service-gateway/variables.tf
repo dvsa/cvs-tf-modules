@@ -36,5 +36,5 @@ variable "lambdas" {
 variable "scaffold_from" {
   type        = string
   description = "The APIG resource to scaffold the new APIG from"
-  default     = "${terraform.workspace}"
+  default     = ""
 }

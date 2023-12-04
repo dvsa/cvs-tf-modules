@@ -11,7 +11,7 @@ data "terraform_remote_state" "current_or_dev" {
 }
 
 data "aws_api_gateway_rest_api" "primary_api_gateway" {
-  name = local.base_api_gateway_name
+  name = local.scaffold_from
 }
 
 data "aws_api_gateway_authorizer" "primary_api_authorizer" {
