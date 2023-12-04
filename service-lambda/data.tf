@@ -21,6 +21,7 @@ data "aws_s3_object" "service_hash" {
 }
 
 data "aws_s3_object" "service" {
-  bucket = var.bucket_name
-  key    = "${var.bucket_key}/${data.aws_s3_object.service_hash.body}.zip"
+  bucket        = var.bucket_name
+  key           = "${var.bucket_key}/${data.aws_s3_object.service_hash.body}.zip"
+  checksum_mode = "ENABLED"
 }

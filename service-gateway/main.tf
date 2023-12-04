@@ -1,3 +1,14 @@
+terraform {
+  required_version = "~>1.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.29.0"
+    }
+  }
+}
+
 resource "aws_api_gateway_rest_api" "service_api" {
   name                = "${terraform.workspace}-${var.service_name}-api"
   binary_media_types  = ["application/octet-stream"]

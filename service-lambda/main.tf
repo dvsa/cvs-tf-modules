@@ -1,3 +1,14 @@
+terraform {
+  required_version = "~>1.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.29.0"
+    }
+  }
+}
+
 resource "aws_lambda_function" "service" {
   function_name = "${var.service_name}-${terraform.workspace}"
   s3_bucket     = data.aws_s3_object.service.bucket
@@ -5,7 +16,7 @@ resource "aws_lambda_function" "service" {
 
   # This should be generated from the zip file as follows:
   # openssl dgst -sha256 -binary lambda.zip | openssl enc -base64
-  source_code_hash = data.aws_s3_object.service.metadata["Sha256sum"]
+  source_code_hash = data.aws_s3_object.service.checksum_sha256
 
   handler                        = data.aws_lambda_function.template_lambda.handler
   runtime                        = data.aws_lambda_function.template_lambda.runtime
