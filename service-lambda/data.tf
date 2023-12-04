@@ -1,5 +1,5 @@
 data "aws_lambda_function" "template_lambda" {
-  function_name = "${var.scaffold_from}"
+  function_name = "${local.scaffold_from}"
 }
 
 data "aws_iam_policy_document" "assumerole" {
