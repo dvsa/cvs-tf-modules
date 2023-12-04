@@ -32,3 +32,9 @@ variable "lambdas" {
   type        = map(string)
   description = "The arns for the lambda functions of this gateway"
 }
+
+variable "scaffold_from" {
+  type        = string
+  description = "The APIG resource to scaffold the new APIG from"
+  default     = "${terraform.workspace}"
+}

@@ -52,8 +52,43 @@ variable "csi" {
   default = ""
 }
 
-variable "csi_name" {
-  type = string
-  description = "CSI for use in resources with a global namespace, i.e. S3 Buckets"
-  default = ""
+variable "scaffold_from" {
+  type        = string
+  description = "The lambda resource to scaffold the new lambda from"
+  default     = "defects-${terraform.workspace}"
+}
+
+variable "timeout_alarm_threshold" {
+  type    = number
+  default = 1
+}
+
+variable "timeout_alarm_evaluation_periods" {
+  type    = number
+  default = 2
+}
+
+variable "timeout_alarm_period" {
+  type    = number
+  default = 60
+}
+
+variable "errors_alarm_threshold" {
+  type    = number
+  default = 1
+}
+
+variable "errors_alarm_evaluation_periods" {
+  type    = number
+  default = 2
+}
+
+variable "errors_alarm_period" {
+  type    = number
+  default = 60
+}
+
+variable "log_retention_days" {
+  type    = number
+  default = 90
 }

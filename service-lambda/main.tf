@@ -1,11 +1,21 @@
+data "aws_s3_object" "service_hash" {
+  bucket = var.bucket_name
+  key    = "${var.bucket_key}/latestHash_${terraform.workspace}.txt"
+}
+
+data "aws_s3_object" "service" {
+  bucket = var.bucket_name
+  key    = "${var.bucket_key}/${data.aws_s3_object.service_hash.body}.zip"
+}
+
 resource "aws_lambda_function" "service" {
   function_name = "${var.service_name}-${terraform.workspace}"
-  s3_bucket     = "${var.bucket_name}"
-  s3_key        = "${var.bucket_key}"
+  s3_bucket     = data.aws_s3_object.service.bucket
+  s3_key        = data.aws_s3_object.service.key
 
   # This should be generated from the zip file as follows:
   # openssl dgst -sha256 -binary lambda.zip | openssl enc -base64
-  # source_code_hash = data.aws_s3_object.service.metadata["Sha256sum"]
+  source_code_hash = data.aws_s3_object.service.metadata["Sha256sum"]
 
   handler                        = data.aws_lambda_function.template_lambda.handler
   runtime                        = data.aws_lambda_function.template_lambda.runtime
@@ -51,7 +61,7 @@ resource "aws_lambda_permission" "allow_invoke" {
 }
 
 resource "aws_iam_role" "main" {
-  name = var.csi_name
+  name = var.csi
 
   assume_role_policy = data.aws_iam_policy_document.assumerole.json
 
@@ -66,4 +76,15 @@ resource "aws_iam_role_policy_attachment" "role-policy-attachment-default" {
   for_each   = toset(local.default_iam_policies)
   role       = aws_iam_role.main.name
   policy_arn = each.value
+}
+
+resource "aws_cloudwatch_log_group" "logs" {
+  name              = "/aws/lambda/${var.service_map.name}-${terraform.workspace}"
+  retention_in_days = var.log_retention_days
+  tags = {
+    Component   = var.service_map.component
+    Environment = terraform.workspace
+    Project     = var.service_map.name
+    Name        = "${var.service_map.name}-${terraform.workspace}"
+  }
 }

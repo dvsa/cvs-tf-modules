@@ -1,28 +1,3 @@
-# data "aws_iam_policy_document" "defects_policy_document" {
-#   statement {
-#     sid     = "AllowAPIGAssumeRole"
-#     effect  = "Allow"
-#     actions = ["sts:AssumeRole"]
-
-#     principals {
-#       type        = "Service"
-#       identifiers = ["apigateway.amazonaws.com"]
-#     }
-#   }
-# }
-
-# resource "aws_iam_role" "defects_role" {
-#   name = "${var.csi}-defects-apigw"
-
-#   assume_role_policy = data.aws_iam_policy_document.defects_policy_document.json
-
-#   tags = merge(
-#     {
-#       "Name" = "${var.csi}-defects-apigw",
-#     },
-#   )
-# }
-
 resource "aws_api_gateway_rest_api" "service_api" {
   name                = "${terraform.workspace}-${var.service_name}-api"
   binary_media_types  = ["application/octet-stream"]
