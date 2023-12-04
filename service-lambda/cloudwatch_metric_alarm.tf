@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_metric_alarm" "lambda_timeouts" {
   count               = local.is_main_env ? 1 : 0
-  alarm_name          = "${var.service_map.name}-${terraform.workspace}-Timeouts"
+  alarm_name          = "${var.service_name}-${terraform.workspace}-Timeouts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.timeout_alarm_evaluation_periods
   threshold           = var.timeout_alarm_threshold
@@ -12,7 +12,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_timeouts" {
   statistic   = "Maximum"
   dimensions = {
     Environment = terraform.workspace
-    Service     = "/aws/lambda/${var.service_map.name}"
+    Service     = "/aws/lambda/${var.service_name}"
   }
   lifecycle {
     ignore_changes = [alarm_actions]
@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_timeouts" {
 
 resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
   count               = local.is_main_env ? 1 : 0
-  alarm_name          = "${var.service_map.name}-${terraform.workspace}-Errors"
+  alarm_name          = "${var.service_name}-${terraform.workspace}-Errors"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = var.errors_alarm_evaluation_periods
   threshold           = var.errors_alarm_threshold
@@ -31,7 +31,7 @@ resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
   metric_name         = "Errors"
   statistic           = "Maximum"
   dimensions = {
-    FunctionName = var.service_map.name
+    FunctionName = var.service_name
   }
   lifecycle {
     ignore_changes = [alarm_actions]
