@@ -1,4 +1,4 @@
-variable "service_name" {
+  variable "service_name" {
   description = "Service name e.g. defects"
   type        = string
   default     = ""
@@ -29,8 +29,8 @@ variable "csi" {
 }
 
 variable "lambdas" {
-  type        = map(string)
-  description = "The arns for the lambda functions of this gateway"
+  type        = map(map(string))
+  description = "The lambda to associate with this gateway"
 }
 
 variable "scaffold_from" {

@@ -28,12 +28,6 @@ variable "project" {
   default     = "cvs"
 }
 
-variable "invoker_arn" {
-  type        = string
-  description = "The arn of the service that can invoke this lambda"
-  default     = ""
-}
-
 variable "bucket_name" {
   type        = string
   description = "The bucket name this service is persisted"
