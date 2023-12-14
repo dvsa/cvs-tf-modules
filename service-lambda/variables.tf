@@ -37,7 +37,7 @@ variable "bucket_name" {
 variable "bucket_key" {
   type        = string
   description = "The bucket key this service is persisted"
-  default     = ""
+  default     = "defects-iva"
 }
 
 variable "csi" {
