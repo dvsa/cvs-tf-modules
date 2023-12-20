@@ -72,13 +72,14 @@ resource "aws_api_gateway_base_path_mapping" "api_gateway_mapping" {
 
 module "lambdas" {
   for_each = var.lambdas
-  source              = "../service-lambda"
-  service_name        = "${each.value.service_name}"
-  bucket_key          = "${each.value.bucket_key}"
-  handler             = "${each.value.handler}"
-  description         = "${each.value.description}"
-  component           = "${var.component}"
-  csi                 = "${var.csi}"
+  source                = "../service-lambda"
+  service_name          = "${each.value.service_name}"
+  bucket_key            = "${each.value.bucket_key}"
+  handler               = "${each.value.handler}"
+  description           = "${each.value.description}"
+  component             = "${var.component}"
+  csi                   = "${var.csi}"
+  environment_variables = each.value.environment_variables
 }
 
 resource "aws_lambda_permission" "allow_invoke" {

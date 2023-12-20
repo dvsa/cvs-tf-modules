@@ -26,6 +26,10 @@ resource "aws_lambda_function" "service" {
   timeout                         = data.aws_lambda_function.template_lambda.timeout
   reserved_concurrent_executions  = data.aws_lambda_function.template_lambda.reserved_concurrent_executions
 
+  environment {
+    variables = length(var.environment_variables) > 0 ? var.environment_variables : null
+  }
+
   dynamic "vpc_config" {
     for_each = data.aws_lambda_function.template_lambda.vpc_config
     content {

@@ -86,3 +86,7 @@ variable "log_retention_days" {
   type    = number
   default = 90
 }
+
+variable "environment_variables" {
+  type    = map(string)
+}

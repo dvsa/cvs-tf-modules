@@ -29,7 +29,13 @@ variable "csi" {
 }
 
 variable "lambdas" {
-  type        = map(map(string))
+  type        = map(object({
+    service_name = string
+    bucket_key = string
+    handler = string
+    description = string
+    environment_variables = optional(map(string))
+  }))
   description = "The lambda to associate with this gateway"
 }
 
