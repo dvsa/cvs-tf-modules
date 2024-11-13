@@ -3,7 +3,7 @@ A repository to contain the modules required to build components of the CVS arch
 
 ## Usage
 
-To read a Module from this repository, the current definition should follow this example@
+To read a Module from this repository, the current definition should follow this example:
 
 ```json
 module "iam_role" {
