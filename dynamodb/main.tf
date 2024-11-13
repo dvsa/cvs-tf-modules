@@ -1,15 +1,5 @@
 locals {
-  hash_attr = [{
-    name = var.hash.key
-    type = var.hash.type
-  }]
-
-  range_attr = var.range != null ? [{
-    name = var.range.key
-    type = var.range.type
-  }] : []
-
-  attributes = concat(local.hash_attr, local.range_attr, var.additional_attributes)
+  attributes = concat(var.additional_attributes)
 
   db_name = "cvs-${terraform.workspace}-${var.unique_name ? random_id.reference_data_unique_identifier.hex : var.service_name}"
 }
@@ -53,7 +43,7 @@ resource "aws_dynamodb_table" "db" {
   }
 
  point_in_time_recovery {
-  enabled = var.enable_point_in_time_recovery && var.is_prod
+  enabled = var.enable_point_in_time_recovery && var.is
 }
 
   dynamic "ttl" {

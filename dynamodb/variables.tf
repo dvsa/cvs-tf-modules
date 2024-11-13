@@ -16,7 +16,7 @@ variable "range" {
     key  = string,
     type = string
   })
-  default     = {
+  default = {
     key  = null,
     type = null
   }
@@ -68,7 +68,7 @@ variable "ttl" {
   }))
   description = "Defines TTL (Time-to-Live) settings for the table, including a boolean to enable TTL and the attribute name used to store TTL values."
   default     = []
- 
+
 }
 
 variable "unique_name" {
