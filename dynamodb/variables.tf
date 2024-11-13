@@ -71,3 +71,9 @@ variable "billing_mode" {
   default     = "PAY_PER_REQUEST"
   description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
 }
+
+variable "enable_point_in_time_recovery" {
+  type        = bool
+  description = "Enable or disable point-in-time recovery for the DynamoDB table."
+  default     = false
+}
