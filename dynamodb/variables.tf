@@ -16,11 +16,11 @@ variable "range" {
     key  = string,
     type = string
   })
+  description = "Optional range key definition for the DynamoDB table, with the key name and type. Set to null if no range key is required."
   default = {
     key  = null,
     type = null
   }
-  description = "Optional range key definition for the DynamoDB table, with the key name and type. Set to null if no range key is required."
 }
 
 variable "additional_attributes" {
