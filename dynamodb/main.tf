@@ -7,7 +7,7 @@ resource "aws_dynamodb_table" "this" {
   stream_enabled   = var.stream_enabled
   stream_view_type = var.stream_enabled ? "NEW_AND_OLD_IMAGES" : null
 
- server_side_encryption {
+  server_side_encryption {
     enabled     = var.enable_encryption
     kms_key_arn = var.server_side_encryption_kms_key_arn
   }
@@ -56,7 +56,7 @@ resource "aws_dynamodb_table" "this" {
 
 resource "random_id" "this" {
   byte_length = 8
-  prefix      = "${var.service_name}-"
+  prefix      = format("%s-", var.service_name)
 }
 
 locals {
@@ -67,12 +67,12 @@ locals {
         type = var.range.type
       },
       {
-        name = var.hash_.ey
+        name = var.hash_.key
         type = var.hash.type
       }
     ],
     var.additional_attributes
   )
 
-  db_name = "cvs-${terraform.workspace}-${var.unique_name ? random_id.this.hex : var.service_name}"
+  db_name = format("cvs-%s-%s", terraform.workspace, var.service_name)
 }

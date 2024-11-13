@@ -1,15 +1,15 @@
 output "id" {
-  value = aws_dynamodb_table.db.id
+  value = aws_dynamodb_table.this.id
 }
 
 output "arn" {
-  value = aws_dynamodb_table.db.arn
+  value = aws_dynamodb_table.this.arn
 }
 
 output "stream_arn" {
-  value = aws_dynamodb_table.db.stream_arn
+  value = aws_dynamodb_table.this.stream_arn
 }
 
 output "name" {
-  value = aws_dynamodb_table.db.name
+  value = aws_dynamodb_table.this.name
 }

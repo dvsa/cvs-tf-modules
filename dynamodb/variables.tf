@@ -71,12 +71,6 @@ variable "ttl" {
 
 }
 
-variable "unique_name" {
-  type        = bool
-  description = "Determines if a unique name should be generated for the DynamoDB table using a random identifier."
-  default     = false
-}
-
 variable "billing_mode" {
   type        = string
   description = "DynamoDB Billing mode. Can be PROVISIONED or PAY_PER_REQUEST"
