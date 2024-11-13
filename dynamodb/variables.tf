@@ -88,3 +88,14 @@ variable "enable_point_in_time_recovery" {
   description = "Enable or disable point-in-time recovery for the DynamoDB table."
   default     = false
 }
+
+variable "enable_encryption" {
+  type        = bool
+  description = "Whether server-side encryption is enabled for the DynamoDB table."
+  default     = true
+}
+
+variable "server_side_encryption_kms_key_arn" {
+  type        = string
+  description = "The ARN of the KMS key used for server-side encryption of the DynamoDB table."
+}

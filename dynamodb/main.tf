@@ -7,6 +7,11 @@ resource "aws_dynamodb_table" "this" {
   stream_enabled   = var.stream_enabled
   stream_view_type = var.stream_enabled ? "NEW_AND_OLD_IMAGES" : null
 
+ server_side_encryption {
+    enabled     = var.enable_encryption
+    kms_key_arn = var.server_side_encryption_kms_key_arn
+  }
+
   dynamic "attribute" {
     for_each = local.attributes
     content {
