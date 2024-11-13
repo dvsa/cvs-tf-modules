@@ -1,10 +1,4 @@
-locals {
-  attributes = concat(var.additional_attributes)
-
-  db_name = "cvs-${terraform.workspace}-${var.unique_name ? random_id.reference_data_unique_identifier.hex : var.service_name}"
-}
-
-resource "aws_dynamodb_table" "db" {
+resource "aws_dynamodb_table" "this" {
   name = local.db_name
 
   billing_mode     = var.billing_mode
@@ -42,9 +36,9 @@ resource "aws_dynamodb_table" "db" {
     }
   }
 
- point_in_time_recovery {
-  enabled = var.enable_point_in_time_recovery && var.is
-}
+  point_in_time_recovery {
+    enabled = var.enable_point_in_time_recovery
+  }
 
   dynamic "ttl" {
     for_each = var.ttl
@@ -53,13 +47,27 @@ resource "aws_dynamodb_table" "db" {
       attribute_name = ttl.value.attribute_name
     }
   }
-
-  tags = {
-    Environment = terraform.workspace
-  }
 }
 
-resource "random_id" "reference_data_unique_identifier" {
+resource "random_id" "this" {
   byte_length = 8
   prefix      = "${var.service_name}-"
+}
+
+locals {
+  attributes = concat(
+    [
+      {
+        name = var.range.key
+        type = var.range.type
+      },
+      {
+        name = var.hash_.ey
+        type = var.hash.type
+      }
+    ],
+    var.additional_attributes
+  )
+
+  db_name = "cvs-${terraform.workspace}-${var.unique_name ? random_id.this.hex : var.service_name}"
 }
