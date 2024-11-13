@@ -3,12 +3,12 @@ locals {
     name = var.hash.key
     type = var.hash.type
   }]
-  
+
   range_attr = var.range != null ? [{
     name = var.range.key
     type = var.range.type
   }] : []
-  
+
   attributes = concat(local.hash_attr, local.range_attr, var.additional_attributes)
 
   db_name = "cvs-${terraform.workspace}-${var.unique_name ? random_id.reference_data_unique_identifier.hex : var.service_name}"
@@ -17,7 +17,7 @@ locals {
 resource "aws_dynamodb_table" "db" {
   name = local.db_name
 
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode     = var.billing_mode
   hash_key         = var.hash.key
   range_key        = var.range.key
   stream_enabled   = var.stream_enabled
