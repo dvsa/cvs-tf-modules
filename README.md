@@ -5,7 +5,7 @@ A repository to contain the modules required to build components of the CVS arch
 
 To read a Module from this repository, the current definition should follow this example:
 
-```json
+```hcl
 module "iam_role" {
   for_each = local.roles
   source = "git::https://github.com/dvsa/cvs-tf-modules//iam_role"
@@ -26,6 +26,6 @@ module "iam_role" {
 
 When developing the module, the feature branch can be accessed by using the `ref` parameter:
 
-```json
+```hcl
   source = "git::https://github.com/dvsa/cvs-tf-modules//iam_role?ref=feature/CB2-14861"
 ```
