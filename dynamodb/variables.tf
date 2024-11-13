@@ -88,3 +88,9 @@ variable "enable_point_in_time_recovery" {
   description = "Enable or disable point-in-time recovery for the DynamoDB table."
   default     = false
 }
+
+variable "is_prod" {
+  description = "Indicates if the environment is production"
+  type        = bool
+  default     = false
+}

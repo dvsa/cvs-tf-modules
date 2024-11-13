@@ -53,7 +53,7 @@ resource "aws_dynamodb_table" "db" {
   }
 
  point_in_time_recovery {
-  enabled = var.enable_point_in_time_recovery && terraform.workspace == "prod"
+  enabled = var.enable_point_in_time_recovery && var.is_prod
 }
 
   dynamic "ttl" {
